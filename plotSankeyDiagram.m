@@ -1,9 +1,22 @@
 function [] = plotSankeyDiagram(class1, class2, colors, opts)
-% plotSankeyDiagram
+
+% plot Sankey (alluvial) diagram to track modules composition across layers
+%
+% INPUT:    class1: vector containing nodes assignment to clusters at layer 1
+%           class2: vector containing nodes assignment to clusters at layer 2
+%           colors: matrix of dimension [nClust x 3] containing colors to represent clusters 
+%                   (nClust = total number of clusters considering the unione of layer1 and layer2)
+%           opts: struct containing optional parameters of the plot.
+%                   it contains:
+%                       opts.dist:half of the distance between blocks 
+%                       opts.width: width of the blocks
+%                       opts.unit: scale factor of the nodes
+%
+% OUTPUT:   handles of the alluvial plot
+%
 % 
-%
-%
-%
+% Author:   Maria Grazia Puxeddu
+% Date:     June 07, 2019
 
 % make sure class1 and class2 are colums
 if isrow(class1); class1 = class1'; end
@@ -16,7 +29,7 @@ cl2 = unique(class2);
 cl2flip = flipud(unique(class2));
 
 if nargin<3
-    colors = parula(length(unique([cl1, cl2])));
+    colors = parula(length(unique([class1, class2])));
 end
 
 if nargin <4
